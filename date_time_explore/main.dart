@@ -1,3 +1,5 @@
+// https://medium.com/flutter-community/working-with-dates-in-dart-e81c70911811
+
 import 'dart:io';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -27,7 +29,7 @@ void main() {
 
   String dayOfWeek = DateFormat.EEEE(defaultLocale).format(now);
   print('dayOfWeek: $dayOfWeek');
-
+ 
   String dayMonth = DateFormat.MMMMd(defaultLocale).format(now);
   print('dayMonth: $dayMonth');
 
