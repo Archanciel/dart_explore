@@ -29,13 +29,20 @@ void main() {
 
   String dayOfWeek = DateFormat.EEEE(defaultLocale).format(now);
   print('dayOfWeek: $dayOfWeek');
- 
+
   String dayMonth = DateFormat.MMMMd(defaultLocale).format(now);
   print('dayMonth: $dayMonth');
 
   String year = DateFormat.y(defaultLocale).format(now);
   print('year: $year');
 
-  final DateTime hhmm = DateFormat.jm(defaultLocale).parse('13:23');
+  DateTime hhmm = DateFormat.jm(defaultLocale).parse('13:23');
   print('${hhmm.hour} : ${hhmm.minute}');
+
+  hhmm = DateFormat.jm(defaultLocale).parse('13:03');
+  print('${hhmm.hour} : ${hhmm.minute}');
+
+  NumberFormat nbf = NumberFormat('00');
+  int val = 1;
+  print('${nbf.format(val)}');
 }
