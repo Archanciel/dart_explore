@@ -25,19 +25,24 @@ void main() {
   final String onBedDurationStr = onBedDurationUserInput.HHmm();
   const Duration wakeDurationUserInput = Duration(hours: 18);
   final String wakeDurationStr = wakeDurationUserInput.HHmm();
-  final Duration circadianDuration = onBedDurationUserInput + wakeDurationUserInput;
-  final DateTime todayWakeUpDateUserInput = localDateFormat.parse('16-04-2022 21:00');
+  final Duration circadianDuration =
+      onBedDurationUserInput + wakeDurationUserInput;
+  final DateTime todayWakeUpDateUserInput =
+      localDateFormat.parse('16-04-2022 21:00');
   final String todayWakeUpDateStr =
       localDateFormatDayName.format(todayWakeUpDateUserInput);
 
-  final DateTime planifiedWakeUpTimeUserInput = localDateFormat.parse('19-04-2022 15:30');
+  final DateTime planifiedWakeUpTimeUserInput =
+      localDateFormat.parse('19-04-2022 15:30');
+  final String planifiedWakeUpTimeStr =
+      localDateFormatDayName.format(planifiedWakeUpTimeUserInput);
   DateTime previousDate = planifiedWakeUpTimeUserInput;
   String previousDateStr = localDateFormatDayName.format(previousDate);
   String whenGoToBedStr = '';
   String whenWakeUpStr = '';
   DateTime beforeLimit;
 
-  print('planified wake up time: $previousDateStr');
+  List<String> outputStringLst = [];
 
   while (true) {
     final DateTime whenGoToBed = previousDate.subtract(onBedDurationUserInput);
@@ -50,8 +55,8 @@ void main() {
     previousDate = whenGoToBed;
 
     whenGoToBedStr = localDateFormatDayName.format(whenGoToBed);
-    print(
-        'go to bed at: $whenGoToBedStr ($previousDateStr - $onBedDurationStr)');
+    outputStringLst.add(
+        'go to bed at: $whenGoToBedStr ($onBedDurationStr before next wake up)');
     final DateTime whenWakeUp = previousDate.subtract(wakeDurationUserInput);
     beforeLimit = previousDate.subtract(circadianDuration);
 
@@ -62,11 +67,16 @@ void main() {
 
     previousDate = whenWakeUp;
     whenWakeUpStr = localDateFormatDayName.format(whenWakeUp);
-    print('wake up at: $whenWakeUpStr ($whenGoToBedStr - $wakeDurationStr)');
+    outputStringLst.add(
+        'wake up at: $whenWakeUpStr ($wakeDurationStr before next go to bed)');
     previousDateStr = localDateFormatDayName.format(previousDate);
   }
 
-  final Duration diffBeforeNextGoToBed = previousDate.difference(todayWakeUpDateUserInput);
-  print('today wake up date: $todayWakeUpDateStr ${diffBeforeNextGoToBed.HHmm()} before next go to bed');
-  print('circadian duration: ${circadianDuration.HHmm()}');
+  final Duration diffBeforeNextGoToBed =
+      previousDate.difference(todayWakeUpDateUserInput);
+  print(
+      'today wake up time: $todayWakeUpDateStr ${diffBeforeNextGoToBed.HHmm()} before next go to bed');
+  outputStringLst.reversed.forEach((element) => print(element));
+  print('planified wake up time: $planifiedWakeUpTimeStr');
+  print('  (circadian duration: ${circadianDuration.HHmm()})');
 }
