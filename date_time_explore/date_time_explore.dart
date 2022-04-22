@@ -21,6 +21,23 @@ void main() {
   final DateFormat localDateFormatDayName =
       DateFormat("EEEE dd-MM-yyyy HH:mm", localName);
 
+  computeRythmForFutureEvent(
+    localDateFormat,
+    localDateFormatDayName,
+  );
+
+  computeDateTimeDiff(localDateFormat);
+
+  computeGoToBedDT(
+    localDateFormat,
+    localDateFormatDayName,
+  );
+}
+
+void computeRythmForFutureEvent(
+  DateFormat localDateFormat,
+  DateFormat localDateFormatDayName,
+) {
   const Duration onBedDurationUserInput = Duration(hours: 12, minutes: 30);
   final String onBedDurationStr = onBedDurationUserInput.HHmm();
   const Duration wakeDurationUserInput = Duration(hours: 18);
@@ -46,7 +63,7 @@ void main() {
 
   while (true) {
     final DateTime whenGoToBed = previousDate.subtract(onBedDurationUserInput);
-//    beforeLimit = previousDate.subtract(circadianDuration);
+    //    beforeLimit = previousDate.subtract(circadianDuration);
 
     if (whenGoToBed.isBefore(todayWakeUpDateUserInput)) {
       break;
@@ -79,4 +96,21 @@ void main() {
   outputStringLst.reversed.forEach((element) => print(element));
   print('planified wake up time: $planifiedWakeUpTimeStr');
   print('  (circadian duration: ${circadianDuration.HHmm()})');
+}
+
+void computeDateTimeDiff(DateFormat localDateFormat) {
+  final DateTime wakeDT = localDateFormat.parse('19-4-2022 17:00');
+  final DateTime goToBedDT = localDateFormat.parse('21-4-2022 8:00');
+
+  print('$goToBedDT - $wakeDT = ${goToBedDT.difference(wakeDT).HHmm()}');
+}
+
+void computeGoToBedDT(
+  DateFormat localDateFormat,
+  DateFormat localDateFormatDayName,
+) {
+  final DateTime wakeDT = localDateFormat.parse('22-4-2022 1:45');
+  final DateTime goToBedDT = wakeDT.add(Duration(hours: 20));
+
+  print('${localDateFormatDayName.format(goToBedDT)}');
 }
