@@ -17,20 +17,20 @@ extension on Duration {
 void main() {
   final String localName = Platform.localeName;
   initializeDateFormatting(localName);
-  final DateFormat localDateFormat = DateFormat('dd-MM-yyyy HH:mm', localName);
-  final DateFormat localDateFormatDayName =
+  final DateFormat localDateTimeFormat = DateFormat('dd-MM-yyyy HH:mm', localName);
+  final DateFormat localDateTimeFormatDayName =
       DateFormat("EEEE dd-MM-yyyy HH:mm", localName);
 
   computeRythmForFutureEvent(
-    localDateFormat,
-    localDateFormatDayName,
+    localDateTimeFormat,
+    localDateTimeFormatDayName,
   );
 
-  computeDateTimeDiff(localDateFormat);
+  computeDateTimeDiff(localDateTimeFormat);
 
   computeGoToBedDT(
-    localDateFormat,
-    localDateFormatDayName,
+    localDateTimeFormat,
+    localDateTimeFormatDayName,
   );
 }
 
@@ -98,9 +98,9 @@ void computeRythmForFutureEvent(
   print('  (circadian duration: ${circadianDuration.HHmm()})');
 }
 
-void computeDateTimeDiff(DateFormat localDateFormat) {
-  final DateTime wakeDT = localDateFormat.parse('19-4-2022 17:00');
-  final DateTime goToBedDT = localDateFormat.parse('21-4-2022 8:00');
+void computeDateTimeDiff(DateFormat localDateTimeFormat) {
+  final DateTime wakeDT = localDateTimeFormat.parse('19-4-2022 17:00');
+  final DateTime goToBedDT = localDateTimeFormat.parse('21-4-2022 8:00');
 
   print('$goToBedDT - $wakeDT = ${goToBedDT.difference(wakeDT).HHmm()}');
 }

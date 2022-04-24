@@ -1,9 +1,7 @@
 import 'package:intl/intl.dart';
 
 // adding method HHmm which returns the Duration formatted as HH:mm
-extension on Duration {
-  // When you use your extension in another file,
-//                          you must give it a name !
+extension FormattedHourMinute on Duration {
   static final NumberFormat numberFormatTwoInt = NumberFormat('00');
 
   /// returns the Duration formatted as HH:mm
