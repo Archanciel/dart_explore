@@ -1,7 +1,14 @@
 void main() {
   List<List<String>> lst = [
-    ['a',],
-    ['b',],
-    ['c',],
+    [
+      'a',
+    ],
+    [
+      'b',
+    ],
+    [
+      'c',
+    ],
   ];
+  print(lst);
 }

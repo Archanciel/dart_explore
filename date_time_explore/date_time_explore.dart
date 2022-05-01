@@ -17,9 +17,12 @@ extension on Duration {
 void main() {
   final String localName = Platform.localeName;
   initializeDateFormatting(localName);
-  final DateFormat localDateTimeFormat = DateFormat('dd-MM-yyyy HH:mm', localName);
+  final DateFormat localDateTimeFormat =
+      DateFormat('dd-MM-yyyy HH:mm', localName);
   final DateFormat localDateTimeFormatDayName =
       DateFormat("EEEE dd-MM-yyyy HH:mm", localName);
+  print('DateTime.now(): ${DateTime.now()}');
+  print('DateTime.now(): ${localDateTimeFormat.format(DateTime.now())}');
 
   computeRythmForFutureEvent(
     localDateTimeFormat,
