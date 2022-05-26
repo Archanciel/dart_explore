@@ -1,6 +1,7 @@
+import 'event.dart';
 import 'tranceiver.dart';
 
 class Receiver extends Tranceiver {
-    Receiver({required String name})
-      : super(name: name);
+    Receiver({required String name, required List<Event> eventLst})
+      : super(name: name, eventLst: eventLst);
 }

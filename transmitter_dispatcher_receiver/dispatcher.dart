@@ -1,17 +1,33 @@
 import 'event.dart';
-import 'tranceiver.dart';
+import 'receiver.dart';
+import 'transmitter.dart';
 
 class Dispatcher {
-  Map<Event, List<Tranceiver>> _eventListenerMap = {};
+  Map<String, List<Transmitter>> _eventListenerMap = {};
+  Map<String, List<Receiver>> _eventReceiverMap = {};
 
   void addListener(
-      {required Tranceiver tranceiver, required List<Event> eventLst}) {
+      {required Transmitter transmitter}) {
+    List<Event> eventLst = transmitter.eventLst;
+
     for (Event event in eventLst) {
-      if (_eventListenerMap[event] == null) {
-        _eventListenerMap[event] = [];
+      if (_eventListenerMap[event.name] == null) {
+        _eventListenerMap[event.name] = [];
       }
 
-      _eventListenerMap[event]!.add(tranceiver);
+      _eventListenerMap[event.name]!.add(transmitter);
+    }
+  }
+
+  void addReceiver({required Receiver receiver}) {
+   List<Event> eventLst = receiver.eventLst;
+
+    for (Event event in eventLst) {
+      if (_eventReceiverMap[event.name] == null) {
+        _eventReceiverMap[event.name] = [];
+      }
+
+      _eventReceiverMap[event.name]!.add(receiver);
     }
   }
 }
