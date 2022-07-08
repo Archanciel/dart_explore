@@ -1,4 +1,7 @@
 // https://pub.dev/packages/enough_serialization
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:enough_serialization/enough_serialization.dart';
 
 enum ArticleArea { electronics, music }
@@ -72,7 +75,7 @@ class Order extends SerializableObject {
   set articles(List<Article> value) => attributes['articles'] = value;
 }
 
-void main() {
+Future<void> main() async {
   final Order order = Order()
     ..articles = [
       ElectronicsArticle()
@@ -91,13 +94,26 @@ void main() {
 
   final Serializer serializer = Serializer();
   final String orderJsonStr = serializer.serialize(order);
-  
+
+  // saving to local file
+  String jsonFilePathName = 'order.json';
+  File(jsonFilePathName).writeAsStringSync(orderJsonStr);
+
   print('order json string: $orderJsonStr');
 
   final String inputJsonStr =
       '{"articles": [{"area": 0, "name": "CD Player", "price": 3799, "recommendation": "Consider our streaming option, too!"}, '
       '{"area": 0, "name": "MC Tape Deck", "price": 12399, "recommendation": "Old school, like it!"}, '
       '{"area": 1, "name": "The white album", "price": 1899, "band": {"name": "Beatles", "year": 1962}}]}';
+
+
+  await File(jsonFilePathName)
+      .readAsString()
+      .then((fileContents) => json.decode(fileContents))
+      .then((jsonData) {
+    print(jsonData);
+  });
+
   final Order deserializedOrder = Order();
   serializer.deserialize(inputJsonStr, deserializedOrder);
 
@@ -106,7 +122,7 @@ void main() {
     print('article_$i.area: ${article.area}');
     print('article_$i.name: ${article.name}');
     print('article_$i.price: ${article.price}');
-    
+
     if (article is ElectronicsArticle) {
       print('electronicsArticle_$i.recommendation: ${article.recommendation}');
     } else if (article is MusicArticle) {
