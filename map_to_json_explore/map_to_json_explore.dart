@@ -1,3 +1,4 @@
+// https://pub.dev/packages/enough_serialization
 import 'package:enough_serialization/enough_serialization.dart';
 
 enum ArticleArea { electronics, music }
@@ -61,8 +62,9 @@ class Order extends SerializableObject {
           return ElectronicsArticle();
         case ArticleArea.music:
           return MusicArticle();
+        default:
+          return Article();
       }
-      return Article();
     };
   }
 
@@ -71,7 +73,7 @@ class Order extends SerializableObject {
 }
 
 void main() {
-  final order = Order()
+  final Order order = Order()
     ..articles = [
       ElectronicsArticle()
         ..name = 'CD Player'
@@ -86,26 +88,30 @@ void main() {
         ..price = 1899
         ..band = Band(name: 'Beatles', year: 1962)
     ];
-  final serializer = Serializer();
-  final json = serializer.serialize(order);
-  print('order: $json');
 
-  final inputJson =
+  final Serializer serializer = Serializer();
+  final String orderJsonStr = serializer.serialize(order);
+  
+  print('order json string: $orderJsonStr');
+
+  final String inputJsonStr =
       '{"articles": [{"area": 0, "name": "CD Player", "price": 3799, "recommendation": "Consider our streaming option, too!"}, '
       '{"area": 0, "name": "MC Tape Deck", "price": 12399, "recommendation": "Old school, like it!"}, '
       '{"area": 1, "name": "The white album", "price": 1899, "band": {"name": "Beatles", "year": 1962}}]}';
-  final deserializedOrder = Order();
-  serializer.deserialize(inputJson, deserializedOrder);
-  for (var i = 0; i < deserializedOrder.articles.length; i++) {
-    final article = deserializedOrder.articles[i];
-    print('$i: area: ${article.area}');
-    print('$i: name: ${article.name}');
-    print('$i: price: ${article.price}');
+  final Order deserializedOrder = Order();
+  serializer.deserialize(inputJsonStr, deserializedOrder);
+
+  for (int i = 0; i < deserializedOrder.articles.length; i++) {
+    final Article article = deserializedOrder.articles[i];
+    print('article_$i.area: ${article.area}');
+    print('article_$i.name: ${article.name}');
+    print('article_$i.price: ${article.price}');
+    
     if (article is ElectronicsArticle) {
-      print('$i: recommendation: ${article.recommendation}');
+      print('electronicsArticle_$i.recommendation: ${article.recommendation}');
     } else if (article is MusicArticle) {
-      print('$i: band-name: ${article.band.name}');
-      print('$i: band-year: ${article.band.year}');
+      print('musicArticle_$i.band-name: ${article.band.name}');
+      print('musicArticle_$i.band-year: ${article.band.year}');
     }
   }
 }
