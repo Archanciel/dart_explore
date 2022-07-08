@@ -1,7 +1,5 @@
 // https://pub.dev/packages/enough_serialization
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:enough_serialization/enough_serialization.dart';
 
 enum ArticleArea { electronics, music }
@@ -60,6 +58,7 @@ class Order extends SerializableObject {
     objectCreators['articles.value'] = (map) {
       final int areaIndex = map!['area'];
       final area = ArticleArea.values[areaIndex];
+      
       switch (area) {
         case ArticleArea.electronics:
           return ElectronicsArticle();
@@ -103,15 +102,10 @@ Future<void> main() async {
 
   File(jsonFilePathName).writeAsStringSync(orderJsonStr);
 
-  String inputJsonStr = await File(jsonFilePathName).readAsString();
+  final Order orderFromFile = await loadOrderDataFromFile(jsonFilePathName);
 
-  print('order json string read from $jsonFilePathName:\n$inputJsonStr\n\n');
-
-  final Order deserializedOrder = Order();
-  serializer.deserialize(inputJsonStr, deserializedOrder);
-
-  for (int i = 0; i < deserializedOrder.articles.length; i++) {
-    final Article article = deserializedOrder.articles[i];
+  for (int i = 0; i < orderFromFile.articles.length; i++) {
+    final Article article = orderFromFile.articles[i];
     print('article_$i.area: ${article.area}');
     print('article_$i.name: ${article.name}');
     print('article_$i.price: ${article.price}');
@@ -125,8 +119,9 @@ Future<void> main() async {
   }
 }
 
-Future<Order> readOrderData(File file, Serializer serializer) async {
-  String inputJsonStr = await file.readAsString();
+Future<Order> loadOrderDataFromFile(String jsonFilePathName) async {
+  final Serializer serializer = Serializer();
+  final String inputJsonStr = await File(jsonFilePathName).readAsString();
   final Order deserializedOrder = Order();
   serializer.deserialize(inputJsonStr, deserializedOrder);
 
