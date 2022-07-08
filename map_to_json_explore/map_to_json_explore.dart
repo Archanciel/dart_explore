@@ -97,22 +97,18 @@ Future<void> main() async {
 
   // saving to local file
   String jsonFilePathName = 'order.json';
+
+  print('order json string before writing it to $jsonFilePathName:\n$orderJsonStr\n\n');
+
   File(jsonFilePathName).writeAsStringSync(orderJsonStr);
 
-  print('order json string: $orderJsonStr');
-
-  final String inputJsonStr =
-      '{"articles": [{"area": 0, "name": "CD Player", "price": 3799, "recommendation": "Consider our streaming option, too!"}, '
-      '{"area": 0, "name": "MC Tape Deck", "price": 12399, "recommendation": "Old school, like it!"}, '
-      '{"area": 1, "name": "The white album", "price": 1899, "band": {"name": "Beatles", "year": 1962}}]}';
-
+  String inputJsonStr = '';
 
   await File(jsonFilePathName)
       .readAsString()
-      .then((fileContents) => json.decode(fileContents))
-      .then((jsonData) {
-    print(jsonData);
-  });
+      .then((fileContents) => inputJsonStr = fileContents);
+      
+  print('order json string read from $jsonFilePathName:\n$inputJsonStr\n\n');
 
   final Order deserializedOrder = Order();
   serializer.deserialize(inputJsonStr, deserializedOrder);
