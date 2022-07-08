@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
 
-List<Player> players = [];
-
 void main() async {
   Directory current = Directory.current;
   String sep = Platform.pathSeparator;
@@ -10,13 +8,15 @@ void main() async {
   String jsonTestFilePath = '$currentPathStr${Platform.pathSeparator}test.json';
   print(jsonTestFilePath);
   final File file = File(jsonTestFilePath); //load the json file
-  await readPlayerData(file); //read data from json file
+  List<Player> players = [];
+  await readPlayerData(file, players); //read data from json file
 
   Player newPlayer = Player(
       //add a new item to data list
       'Samy Brook',
       '31',
       'cooking');
+
 
   players.add(newPlayer);
 
@@ -28,16 +28,17 @@ void main() async {
       )
       .toList();
 
-  file.writeAsStringSync(
-      json.encode(players)); //write (the whole list) to json file
+  String playersJsonStr = json.encode(players);
+
+  file.writeAsStringSync(playersJsonStr); //write (the whole list) to json file
 }
 
-Future<void> readPlayerData(File file) async {
-  String contents = await file.readAsString();
-  var jsonResponse = jsonDecode(contents);
+Future<void> readPlayerData(File file, List<Player> players) async {
+  String playersJsonStr = await file.readAsString();
+  List<dynamic> jsonResponse = jsonDecode(playersJsonStr);
 
-  for (var p in jsonResponse) {
-    Player player = Player(p['name'], p['age'], p['hobby']);
+  for (Map map in jsonResponse) {
+    Player player = Player(map['name'], map['age'], map['hobby']);
     players.add(player);
   }
 }
