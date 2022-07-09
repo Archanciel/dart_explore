@@ -72,25 +72,25 @@ class Order extends SerializableObject {
 
   List<Article> get articles => attributes['articles'];
   set articles(List<Article> value) => attributes['articles'] = value;
-}
 
-Future<Order> loadOrderFromFile({required String filePathName}) async {
-  final Serializer serializer = Serializer();
-  final String inputJsonStr = await File(filePathName).readAsString();
-  final Order deserializedOrder = Order();
-  serializer.deserialize(inputJsonStr, deserializedOrder);
+  Future<Order> loadOrderFromFile({required String filePathName}) async {
+    final Serializer serializer = Serializer();
+    final String inputJsonStr = await File(filePathName).readAsString();
+    final Order deserializedOrder = this;
+    serializer.deserialize(inputJsonStr, deserializedOrder);
 
-  return deserializedOrder;
-}
+    return deserializedOrder;
+  }
 
-void saveOrderToFile({required String filePathName, required Order order}) {
-  final Serializer serializer = Serializer();
-  final String orderJsonStr = serializer.serialize(order);
+  void saveOrderToFile({required String filePathName}) {
+    final Serializer serializer = Serializer();
+    final String orderJsonStr = serializer.serialize(this);
 
-  print(
-      'order json string before writing it to $filePathName:\n$orderJsonStr\n\n');
+    print(
+        'order json string before writing it to $filePathName:\n$orderJsonStr\n\n');
 
-  File(filePathName).writeAsStringSync(orderJsonStr);
+    File(filePathName).writeAsStringSync(orderJsonStr);
+  }
 }
 
 Future<void> main() async {
@@ -113,9 +113,11 @@ Future<void> main() async {
   // saving to local file
   String jsonFilePathName = 'order.json';
 
-  saveOrderToFile(filePathName: jsonFilePathName, order: order);
+  order.saveOrderToFile(filePathName: jsonFilePathName);
 
-  final Order orderFromFile = await loadOrderFromFile(filePathName: jsonFilePathName);
+  final Order orderFromFile = Order();
+
+  await orderFromFile.loadOrderFromFile(filePathName: jsonFilePathName);
 
   for (int i = 0; i < orderFromFile.articles.length; i++) {
     final Article article = orderFromFile.articles[i];
