@@ -58,7 +58,7 @@ class Order extends SerializableObject {
     objectCreators['articles.value'] = (map) {
       final int areaIndex = map!['area'];
       final area = ArticleArea.values[areaIndex];
-      
+
       switch (area) {
         case ArticleArea.electronics:
           return ElectronicsArticle();
@@ -91,18 +91,12 @@ Future<void> main() async {
         ..band = Band(name: 'Beatles', year: 1962)
     ];
 
-  final Serializer serializer = Serializer();
-  final String orderJsonStr = serializer.serialize(order);
-
   // saving to local file
   String jsonFilePathName = 'order.json';
 
-  print(
-      'order json string before writing it to $jsonFilePathName:\n$orderJsonStr\n\n');
+  saveOrderToFile(filePathName: jsonFilePathName, order: order);
 
-  File(jsonFilePathName).writeAsStringSync(orderJsonStr);
-
-  final Order orderFromFile = await loadOrderDataFromFile(jsonFilePathName);
+  final Order orderFromFile = await loadOrderFromFile(filePathName: jsonFilePathName);
 
   for (int i = 0; i < orderFromFile.articles.length; i++) {
     final Article article = orderFromFile.articles[i];
@@ -119,11 +113,21 @@ Future<void> main() async {
   }
 }
 
-Future<Order> loadOrderDataFromFile(String jsonFilePathName) async {
+Future<Order> loadOrderFromFile({required String filePathName}) async {
   final Serializer serializer = Serializer();
-  final String inputJsonStr = await File(jsonFilePathName).readAsString();
+  final String inputJsonStr = await File(filePathName).readAsString();
   final Order deserializedOrder = Order();
   serializer.deserialize(inputJsonStr, deserializedOrder);
 
   return deserializedOrder;
+}
+
+void saveOrderToFile({required String filePathName, required Order order}) {
+  final Serializer serializer = Serializer();
+  final String orderJsonStr = serializer.serialize(order);
+
+  print(
+      'order json string before writing it to $filePathName:\n$orderJsonStr\n\n');
+
+  File(filePathName).writeAsStringSync(orderJsonStr);
 }
