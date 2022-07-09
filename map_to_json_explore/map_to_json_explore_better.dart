@@ -74,6 +74,25 @@ class Order extends SerializableObject {
   set articles(List<Article> value) => attributes['articles'] = value;
 }
 
+Future<Order> loadOrderFromFile({required String filePathName}) async {
+  final Serializer serializer = Serializer();
+  final String inputJsonStr = await File(filePathName).readAsString();
+  final Order deserializedOrder = Order();
+  serializer.deserialize(inputJsonStr, deserializedOrder);
+
+  return deserializedOrder;
+}
+
+void saveOrderToFile({required String filePathName, required Order order}) {
+  final Serializer serializer = Serializer();
+  final String orderJsonStr = serializer.serialize(order);
+
+  print(
+      'order json string before writing it to $filePathName:\n$orderJsonStr\n\n');
+
+  File(filePathName).writeAsStringSync(orderJsonStr);
+}
+
 Future<void> main() async {
   final Order order = Order()
     ..articles = [
@@ -111,23 +130,4 @@ Future<void> main() async {
       print('musicArticle_$i.band-year: ${article.band.year}');
     }
   }
-}
-
-Future<Order> loadOrderFromFile({required String filePathName}) async {
-  final Serializer serializer = Serializer();
-  final String inputJsonStr = await File(filePathName).readAsString();
-  final Order deserializedOrder = Order();
-  serializer.deserialize(inputJsonStr, deserializedOrder);
-
-  return deserializedOrder;
-}
-
-void saveOrderToFile({required String filePathName, required Order order}) {
-  final Serializer serializer = Serializer();
-  final String orderJsonStr = serializer.serialize(order);
-
-  print(
-      'order json string before writing it to $filePathName:\n$orderJsonStr\n\n');
-
-  File(filePathName).writeAsStringSync(orderJsonStr);
 }
