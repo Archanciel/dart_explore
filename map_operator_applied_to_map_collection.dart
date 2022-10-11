@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 void main() {
   Map<String, int> srcMap = {"a": 1, "b": 2};
   print(srcMap); // {a: 1, b: 2}
@@ -20,4 +22,18 @@ void main() {
       print(value);
     }
   }
+
+  Map<String, dynamic> map = {
+    'one': 1,
+    'doubleTwo': 2.2,
+    'hello': 'Hello world !',
+    'sub map': {'waouh': 111, 'grr': 37},
+    'coucou': 'Coucou world !',
+  };
+
+  print(map);
+
+  JsonEncoder encoder = JsonEncoder.withIndent('  ');
+
+  print(encoder.convert(map));
 }
