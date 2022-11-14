@@ -31,6 +31,17 @@ void main() {
       positionalNonNullableAndPositionalOptionalNullableNoDefValDiffNamedArguments;
   runPositionalNonNullableAndPositionalOptionalNullableNoDefValArgumentsFunc(
       positionalNonNullableAndPositionalOptionalNullableNoDefValArgumentsFuncVariable);
+  
+  void Function(double)
+      positionalNonNullableAndPositionalOptionalNullableDefValArgumentsFuncVariable =
+      positionalNonNullableAndPositionalOptionalNullableDefValArguments;
+  runPositionalNonNullableAndPositionalOptionalNullableDefValArgumentsFunc(
+      positionalNonNullableAndPositionalOptionalNullableDefValArgumentsFuncVariable);
+
+  positionalNonNullableAndPositionalOptionalNullableDefValArgumentsFuncVariable =
+      positionalNonNullableAndPositionalOptionalNullableDefValDiffNamedArguments;
+  runPositionalNonNullableAndPositionalOptionalNullableDefValArgumentsFunc(
+      positionalNonNullableAndPositionalOptionalNullableDefValArgumentsFuncVariable);
 }
 
 void runPositionalParmsFunc(void Function(String, int) positionalParmFunc) {
@@ -109,4 +120,26 @@ void
   // no default value arguments, compensated by using ?? null operator
   print(
       'Result 2.5 percent of 2: ${(percentage / 100) * (optionalOne ?? 1) * (optionalTwo ?? 2)}');
+}
+
+void runPositionalNonNullableAndPositionalOptionalNullableDefValArgumentsFunc(
+    void Function(double)
+        positionalNonNullableAndPositionalOptionalNullableDefValArgumentsFunc) {
+  positionalNonNullableAndPositionalOptionalNullableDefValArgumentsFunc(2.5);
+}
+
+void positionalNonNullableAndPositionalOptionalNullableDefValArguments(
+    double percent,
+    [int one = 1,
+    double two = 2.0]) {
+  print('Optional def val arguments. Result 2.5 % of 2: ${(percent / 100) * one * two}');
+}
+
+void
+    positionalNonNullableAndPositionalOptionalNullableDefValDiffNamedArguments(
+        double percentage,
+        [int optionalOne = 1,
+        double optionalTwo = 2.0]) {
+  print(
+      'Optional def val arguments. Result 2.5 percent of 2: ${(percentage / 100) * optionalOne * optionalTwo}');
 }
