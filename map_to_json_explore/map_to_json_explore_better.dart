@@ -6,18 +6,30 @@ enum ArticleArea { electronics, music }
 
 class Article extends SerializableObject {
   Article() {
+    // setting enum
     transformers['area'] = (value) =>
         value is ArticleArea ? value.index : ArticleArea.values[value];
   }
 
+  // storing enum
   ArticleArea get area => attributes['area'];
   set area(ArticleArea value) => attributes['area'] = value;
 
+  // storing String
   String get name => attributes['name'];
   set name(String value) => attributes['name'] = value;
 
-  int get price => attributes['price'];
-  set price(int value) => attributes['price'] = value;
+  // storing int
+  int get date => attributes['date'];
+  set date(int value) => attributes['date'] = value;
+
+  // storing double
+  double get price => attributes['price'];
+  set price(double value) => attributes['price'] = value;
+
+  // storing bool
+  bool get isDurable => attributes['durable'];
+  set isDurable(bool value) => attributes['durable'] = value;
 }
 
 class ElectronicsArticle extends Article {
@@ -35,6 +47,7 @@ class MusicArticle extends Article {
     objectCreators['band'] = (map) => Band();
   }
 
+  // storing class instance variable
   Band get band => attributes['band'];
   set band(Band value) => attributes['band'] = value;
 }
@@ -52,9 +65,14 @@ class Band extends SerializableObject {
   }
 }
 
+/// Contains sub Article instances
 class Order extends SerializableObject {
+  /// Constructor returning a sub Article instance
   Order() {
+    // setting list of Articles
     objectCreators['articles'] = (map) => <Article>[];
+
+    // setting Article enum type
     objectCreators['articles.value'] = (map) {
       final int areaIndex = map!['area'];
       final area = ArticleArea.values[areaIndex];
@@ -98,16 +116,22 @@ Future<void> main() async {
     ..articles = [
       ElectronicsArticle()
         ..name = 'CD Player'
-        ..price = 3799
-        ..recommendation = 'Consider our streaming option, too!',
+        ..date = 2021
+        ..price = 99.95
+        ..recommendation = 'Consider our streaming option, too!'
+        ..isDurable = false,
       ElectronicsArticle()
         ..name = 'MC Tape Deck'
-        ..price = 12399
-        ..recommendation = 'Old school, like it!',
+        ..date = 2022
+        ..price = 75
+        ..recommendation = 'Old school, like it!'
+        ..isDurable = false,
       MusicArticle()
         ..name = 'The white album'
-        ..price = 1899
+        ..date = 1962
+        ..price = 19.95
         ..band = Band(name: 'Beatles', year: 1962)
+        ..isDurable = true
     ];
 
   // saving to local file
@@ -123,7 +147,9 @@ Future<void> main() async {
     final Article article = orderFromFile.articles[i];
     print('article_$i.area: ${article.area}');
     print('article_$i.name: ${article.name}');
+    print('article_$i.date: ${article.date}');
     print('article_$i.price: ${article.price}');
+    print('article_$i.durable: ${article.isDurable}');
 
     if (article is ElectronicsArticle) {
       print('electronicsArticle_$i.recommendation: ${article.recommendation}');
