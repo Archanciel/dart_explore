@@ -23,14 +23,14 @@ const int descending = -1;
 
 void main() {
   List<Person> persons = [
-    Person('Mill', 72, 12500, 2000, 3),
+    Person('Mill', 72, 9999, 3000, 3),
     Person('Jack', 23, 3500, 1800, 1),
     Person('Dill', 50, 9000, 7000, 0),
     Person('Tomo', 23, 4000, 5000, 2),
     Person('Jill', 43, 7000, 2000, 2),
-    Person('Will', 50, 10000, 1000, 0),
+    Person('Will', 50, 9900, 1000, 0),
     Person('Sill', 72, 7000, 7000, 0),
-    Person('Bill', 50, 7000, 5000, 10),
+    Person('Bill', 50, 7000, 5000, 5),
   ];
   print('persons list before sort');
   printPersons(persons);
