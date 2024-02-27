@@ -26,25 +26,25 @@ void main() {
     Person('Mill', 72, 12500, 2000, 3),
     Person('Jack', 23, 3500, 1800, 1),
     Person('Dill', 50, 9000, 7000, 0),
-    Person('Tom', 23, 4000, 5000, 2),
+    Person('Tomo', 23, 4000, 5000, 2),
     Person('Jill', 43, 7000, 2000, 2),
     Person('Will', 50, 10000, 1000, 0),
     Person('Sill', 72, 7000, 7000, 0),
     Person('Bill', 50, 7000, 5000, 10),
   ];
   print('persons list before sort');
-  print(persons);
+  printPersons(persons);
 
   print('\npersons list after sort by age ascending and salary ascending');
-  print(sortPersons(
+  printPersons(sortPersons(
     personsLst: persons,
   ));
 
   print('\npersons list before sort');
-  print(persons);
+  printPersons(persons);
 
   print('\npersons list after sort by age descending and salary descending');
-  print(sortPersons(
+  printPersons(sortPersons(
     personsLst: persons,
     ageOrder: descending,
     salaryOrder: descending,
@@ -66,7 +66,7 @@ void main() {
   );
 
   print('\npersons list after sort by fortune ascending and numberOfChildren descending');
-  print(sortedPersonsByCriteria);
+  printPersons(sortedPersonsByCriteria);
 
   List<Person> sortedPersonsByFortunePerChild = sortPersonsByCriteria(
     personsLst: persons,
@@ -83,8 +83,8 @@ void main() {
     ],
   );
 
-  print('\npersons list after sort by fortunee per child dscending');
-  print(sortedPersonsByFortunePerChild);
+  print('\npersons list after sort by fortunee per child dscending and numberOfChildren ascending');
+  printPersons(sortedPersonsByFortunePerChild);
 }
 
 List<Person> sortPersons({
@@ -133,3 +133,10 @@ List<Person> sortPersonsByCriteria({
 
   return personLstCopy;
 }
+
+void printPersons(List<Person> persons) {
+  for (Person person in persons) {
+    print(person);
+  }
+}
+
