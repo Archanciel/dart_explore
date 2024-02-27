@@ -23,13 +23,13 @@ const int descending = -1;
 
 void main() {
   List<Person> persons = [
-    Person('Mill', 72, 12500, 2000000, 3),
-    Person('Jack', 23, 3500, 180000, 1),
-    Person('Dill', 50, 9000, 70000, 0),
-    Person('Tom', 23, 4000, 5000000, 2),
-    Person('Jill', 43, 7000, 2000000, 2),
-    Person('Will', 50, 10000, 100000, 0),
-    Person('Sill', 72, 7000, 7000000, 0),
+    Person('Mill', 72, 12500, 2000, 3),
+    Person('Jack', 23, 3500, 1800, 1),
+    Person('Dill', 50, 9000, 7000, 0),
+    Person('Tom', 23, 4000, 5000, 2),
+    Person('Jill', 43, 7000, 2000, 2),
+    Person('Will', 50, 10000, 1000, 0),
+    Person('Sill', 72, 7000, 7000, 0),
     Person('Bill', 50, 7000, 5000, 10),
   ];
   print('persons list before sort');
@@ -54,19 +54,37 @@ void main() {
     personsLst: persons,
     criteria: [
       SortCriteria(
-        (p) => p.fortune,
-        ascending,
+        selectorFunction: (p) => p.fortune,
+        sortOrder: ascending,
       ),
       SortCriteria(
-        (p) => p.numberOfChildren,
-        descending,
+        selectorFunction: (p) => p.numberOfChildren,
+        sortOrder: descending,
       ),
       // Add more criteria as needed
     ],
   );
 
-  print('\npersons list after sort by criteria');
+  print('\npersons list after sort by fortune ascending and numberOfChildren descending');
   print(sortedPersonsByCriteria);
+
+  List<Person> sortedPersonsByFortunePerChild = sortPersonsByCriteria(
+    personsLst: persons,
+    criteria: [
+      SortCriteria(
+        selectorFunction: (p) => p.fortune / ((p.numberOfChildren == 0) ? 1 : p.numberOfChildren),
+        sortOrder: descending,
+      ),
+      SortCriteria(
+        selectorFunction: (p) => p.numberOfChildren,
+        sortOrder: ascending,
+      ),
+      // Add more criteria as needed
+    ],
+  );
+
+  print('\npersons list after sort by fortunee per child dscending');
+  print(sortedPersonsByFortunePerChild);
 }
 
 List<Person> sortPersons({
@@ -87,10 +105,13 @@ List<Person> sortPersons({
 }
 
 class SortCriteria<T> {
-  final Comparable Function(T) selector;
-  final int order;
+  final Comparable Function(T) selectorFunction;
+  final int sortOrder;
 
-  SortCriteria(this.selector, this.order);
+  SortCriteria({
+    required this.selectorFunction,
+    required this.sortOrder,
+  });
 }
 
 List<Person> sortPersonsByCriteria({
@@ -101,8 +122,10 @@ List<Person> sortPersonsByCriteria({
 
   personLstCopy.sort((a, b) {
     for (var criterion in criteria) {
-      int comparison = criterion.selector(a).compareTo(criterion.selector(b)) *
-          criterion.order;
+      int comparison = criterion
+              .selectorFunction(a)
+              .compareTo(criterion.selectorFunction(b)) *
+          criterion.sortOrder;
       if (comparison != 0) return comparison;
     }
     return 0;
