@@ -3,13 +3,13 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/_fe_analyzer_shared-64.0.0",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/_fe_analyzer_shared-67.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/analyzer-6.2.0",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/analyzer-6.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -51,9 +51,9 @@
     },
     {
       "name": "coverage",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/coverage-1.6.3",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/coverage-1.7.2",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "crypto",
@@ -135,9 +135,9 @@
     },
     {
       "name": "js",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.7.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.1"
     },
     {
       "name": "json_annotation",
@@ -153,21 +153,21 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "meta",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.10.0",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.12.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "mime",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/mime-1.0.4",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/mime-1.0.5",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.2"
     },
     {
       "name": "node_preamble",
@@ -183,15 +183,15 @@
     },
     {
       "name": "path",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.8.3",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "petitparser",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.1",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.2",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.2"
     },
     {
       "name": "pool",
@@ -273,19 +273,19 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/test-1.24.6",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/test-1.25.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.6.1",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/test_core-0.5.6",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/test_core-0.6.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -297,9 +297,9 @@
     },
     {
       "name": "vm_service",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-11.10.0",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.3"
     },
     {
       "name": "watcher",
@@ -308,10 +308,16 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "web_socket_channel",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-2.4.0",
+      "name": "web",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.5.0",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "web_socket_channel",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-2.4.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "webkit_inspection_protocol",
@@ -321,9 +327,9 @@
     },
     {
       "name": "xml",
-      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.4.2",
+      "rootUri": "file:///C:/Users/Jean-Pierre/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.5.0",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.2"
     },
     {
       "name": "yaml",
@@ -344,7 +350,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-09-09T17:00:32.331778Z",
+  "generated": "2024-02-28T12:37:49.937185Z",
   "generator": "pub",
-  "generatorVersion": "3.1.0"
+  "generatorVersion": "3.3.0"
 }
