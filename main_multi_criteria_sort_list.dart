@@ -6,15 +6,17 @@ class Person {
   double salary;
   double fortune;
   int numberOfChildren;
+  DateTime birthDate;
   Person(
     this.name,
     this.age,
     this.salary,
     this.fortune,
     this.numberOfChildren,
+    this.birthDate,
   );
   String toString() {
-    return 'name: $name, age: $age, salary: $salary, fortune: $fortune, numberOfChildren: $numberOfChildren';
+    return 'name: $name, age: $age, sal: $salary, fortu: $fortune, nbChildren: $numberOfChildren, birthDate: $birthDate';
   }
 }
 
@@ -23,14 +25,14 @@ const int descending = -1;
 
 void main() {
   List<Person> persons = [
-    Person('Mill', 72, 9999, 3000, 3),
-    Person('Jack', 23, 3500, 1800, 1),
-    Person('Dill', 50, 9000, 7000, 0),
-    Person('Tomo', 23, 4000, 5000, 2),
-    Person('Jill', 43, 7000, 2000, 2),
-    Person('Will', 50, 9900, 1000, 0),
-    Person('Sill', 72, 7000, 7000, 0),
-    Person('Bill', 50, 7000, 5000, 5),
+    Person('Mill', 72, 9999, 3000, 3, DateTime(2000, 1, 1, 15, 40)),
+    Person('Jack', 23, 3500, 1800, 1, DateTime(2000, 1, 1, 16, 30)),
+    Person('Dill', 50, 9000, 7000, 0, DateTime(2000, 1, 3, 23, 30)),
+    Person('Tomo', 23, 4000, 5000, 2, DateTime(1999, 1, 1, 15, 30)),
+    Person('Jill', 43, 7000, 2000, 2, DateTime(2000, 1, 1, 15, 45)),
+    Person('Will', 50, 9900, 1000, 0, DateTime(2000, 8, 1, 15, 30)),
+    Person('Sill', 72, 7000, 7000, 0, DateTime(2000, 1, 1, 15, 38)),
+    Person('Bill', 50, 7000, 5000, 5, DateTime(2000, 11, 1, 15, 30)),
   ];
   print('persons list before sort');
   printPersons(persons);
@@ -52,7 +54,7 @@ void main() {
 
   List<Person> sortedPersonsByCriteria = sortPersonsByCriteria(
     personsLst: persons,
-    criteria: [
+    sortCriteriaLst: [
       SortCriteria(
         selectorFunction: (p) => p.fortune,
         sortOrder: ascending,
@@ -70,7 +72,7 @@ void main() {
 
   List<Person> sortedPersonsByFortunePerChild = sortPersonsByCriteria(
     personsLst: persons,
-    criteria: [
+    sortCriteriaLst: [
       SortCriteria(
         selectorFunction: (p) => p.fortune / ((p.numberOfChildren == 0) ? 1 : p.numberOfChildren),
         sortOrder: descending,
@@ -85,6 +87,24 @@ void main() {
 
   print('\npersons list after sort by fortunee per child dscending and numberOfChildren ascending');
   printPersons(sortedPersonsByFortunePerChild);
+
+
+  List<Person> sortedPersonsByBirthDate = sortPersonsByCriteria(
+    personsLst: persons,
+    sortCriteriaLst: [
+      SortCriteria(
+        selectorFunction: (p) {
+          DateTime birthDateNoTime = DateTime(p.birthDate.year, p.birthDate.month, p.birthDate.day);
+          return birthDateNoTime;
+        },
+        sortOrder: ascending,
+      ),
+      // Add more criteria as needed
+    ],
+  );
+
+  print('\npersons list after sort by birth date ascending');
+  printPersons(sortedPersonsByBirthDate);
 }
 
 List<Person> sortPersons({
@@ -116,16 +136,16 @@ class SortCriteria<T> {
 
 List<Person> sortPersonsByCriteria({
   required List<Person> personsLst,
-  required List<SortCriteria> criteria,
+  required List<SortCriteria> sortCriteriaLst,
 }) {
   List<Person> personLstCopy = List<Person>.from(personsLst);
 
   personLstCopy.sort((a, b) {
-    for (var criterion in criteria) {
-      int comparison = criterion
+    for (SortCriteria sortCriteria in sortCriteriaLst) {
+      int comparison = sortCriteria
               .selectorFunction(a)
-              .compareTo(criterion.selectorFunction(b)) *
-          criterion.sortOrder;
+              .compareTo(sortCriteria.selectorFunction(b)) *
+          sortCriteria.sortOrder;
       if (comparison != 0) return comparison;
     }
     return 0;
