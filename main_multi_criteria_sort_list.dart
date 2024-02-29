@@ -1,22 +1,23 @@
 // https://chat.openai.com/share/4e661b29-3cd0-41eb-9a66-2fbb0cdb7a7f
+// look main_date_time_criteria_sort_list.dart as well
 
 class Person {
   String name;
-  int age;
+  bool isMan;
   double salary;
   double fortune;
   int numberOfChildren;
   DateTime birthDate;
   Person(
     this.name,
-    this.age,
+    this.isMan,
     this.salary,
     this.fortune,
     this.numberOfChildren,
     this.birthDate,
   );
   String toString() {
-    return 'name: $name, age: $age, sal: $salary, fortu: $fortune, nbChildren: $numberOfChildren, birthDate: $birthDate';
+    return 'name: $name, sex: $isMan, sal: $salary, fortu: $fortune, nbChildren: $numberOfChildren, birthDate: $birthDate';
   }
 }
 
@@ -25,14 +26,14 @@ const int descending = -1;
 
 void main() {
   List<Person> persons = [
-    Person('Mill', 72, 9999, 3000, 3, DateTime(2000, 1, 1, 15, 40)),
-    Person('Jack', 23, 3500, 1800, 1, DateTime(2000, 1, 1, 16, 30)),
-    Person('Dill', 50, 9000, 7000, 0, DateTime(2000, 1, 3, 23, 30)),
-    Person('Tomo', 23, 4000, 5000, 2, DateTime(1999, 1, 1, 15, 30)),
-    Person('Jill', 43, 7000, 2000, 2, DateTime(2000, 1, 1, 15, 45)),
-    Person('Will', 50, 9900, 1000, 0, DateTime(2000, 8, 1, 15, 30)),
-    Person('Sill', 72, 7000, 7000, 0, DateTime(2000, 1, 1, 15, 38)),
-    Person('Bill', 50, 7000, 5000, 5, DateTime(2000, 11, 1, 15, 30)),
+    Person('Mill', true, 9999, 3000, 3, DateTime(2000, 1, 1, 15, 40)),
+    Person('Jola', false, 3500, 1800, 1, DateTime(2000, 1, 1, 16, 30)),
+    Person('Dill', true, 9000, 7000, 0, DateTime(2000, 1, 3, 23, 30)),
+    Person('Tomo', true, 4000, 5000, 2, DateTime(1999, 1, 1, 15, 30)),
+    Person('Jill', true, 7000, 2000, 2, DateTime(2000, 1, 1, 15, 45)),
+    Person('Lida', false, 9900, 1000, 0, DateTime(2000, 8, 1, 15, 30)),
+    Person('Sill', true, 7000, 7000, 0, DateTime(2000, 1, 1, 15, 38)),
+    Person('Sila', false, 7000, 5000, 5, DateTime(2000, 11, 1, 15, 30)),
   ];
   print('persons list before sort');
   printPersons(persons);
@@ -48,7 +49,7 @@ void main() {
   print('\npersons list after sort by age descending and salary descending');
   printPersons(sortPersons(
     personsLst: persons,
-    ageOrder: descending,
+    fortuneOrder: descending,
     salaryOrder: descending,
   ));
 
@@ -61,6 +62,10 @@ void main() {
       ),
       SortCriteria(
         selectorFunction: (p) => p.numberOfChildren,
+        sortOrder: descending,
+      ),
+      SortCriteria(
+        selectorFunction: (p) => p.isMan,
         sortOrder: descending,
       ),
       // Add more criteria as needed
@@ -109,13 +114,13 @@ void main() {
 
 List<Person> sortPersons({
   required List<Person> personsLst,
-  int ageOrder = ascending,
+  int fortuneOrder = ascending,
   int salaryOrder = ascending,
 }) {
   List<Person> personLstCopy = List<Person>.from(personsLst);
 
   personLstCopy.sort((a, b) {
-    int compareAge = a.age.compareTo(b.age) * ageOrder;
+    int compareAge = a.fortune.compareTo(b.fortune) * fortuneOrder;
     if (compareAge != 0) return compareAge;
     int compareSalary = a.salary.compareTo(b.salary) * salaryOrder;
     return compareSalary;
