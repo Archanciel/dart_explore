@@ -12,22 +12,55 @@ class Book {
 
 void main() {
   List<Book> books = [
-    Book('Sur quelles tendances crypto investir en 2024 ?', ''),
-    Book('Tendances crypto en progression en 2024', ''),
-    Book('Intelligence artificielle: menace ou opportunité en 2024 ?', ''),
+    Book('Sur quelle tendance crypto investir en 2024 ?', ''),
+    Book('Tendance crypto en progression en 2024', ''),
+    Book('Intelligence artificielle: quelle menace ou opportunité en 2024 ?', ''),
     Book('Intelligence humaine ou artificielle, quelles différences ?', ''),
   ];
 
-  List<String> filterSentencesAnd = [
-    'tendances crypto',
+  List<String> filterSentences = [
+    'tendance crypto',
     'en 2024',
   ];
 
-  print('books list after AND filter');
-  printBooks(filter(books, filterSentencesAnd, FilterType.AND));
+  print('\nbooks list after AND filter sentences <tendance crypto> and <en 2024>');
+  printBooks(filter(books, filterSentences, FilterType.AND));
 
-  print('\nbooks list after OR filter');
-  printBooks(filter(books, filterSentencesAnd, FilterType.OR));
+  print('\nbooks list after OR filter sentences <tendance crypto> and <en 2024>');
+  printBooks(filter(books, filterSentences, FilterType.OR));
+
+  filterSentences = [
+    'en 2024',
+    'tendance crypto',
+  ];
+
+  print('\nbooks list after AND filter sentences <en 2024> and <tendance crypto>');
+  printBooks(filter(books, filterSentences, FilterType.AND));
+
+  print('\nbooks list after OR filter sentences <en 2024> and <tendance crypto>');
+  printBooks(filter(books, filterSentences, FilterType.OR));
+
+  filterSentences = [
+    'quelle',
+    '2024',
+  ];
+
+  print('\nbooks list after AND filter sentences <quelle> and <2024>');
+  printBooks(filter(books, filterSentences, FilterType.AND));
+
+  print('\nbooks list after OR filter sentences <quelle> and <2024>');
+  printBooks(filter(books, filterSentences, FilterType.OR));
+
+  filterSentences = [
+    '2024',
+    'quelle',
+  ];
+
+  print('\nbooks list after AND filter sentences <2024> and <quelle>');
+  printBooks(filter(books, filterSentences, FilterType.AND));
+
+  print('\nbooks list after OR filter sentences <2024> and <quelle>');
+  printBooks(filter(books, filterSentences, FilterType.OR));
 }
 
 void printBooks(List<Book> books) {
@@ -47,16 +80,20 @@ List<Book> filter(
     for (String filterSentence in filterSentences) {
       if (book.title.toLowerCase().contains(filterSentence.toLowerCase())) {
         isBookFiltered = true;
+        if (filterType == FilterType.OR) {
+          break;
+        }
       } else {
-        isBookFiltered = false;
-        break;
+        if (filterType == FilterType.AND) {
+          isBookFiltered = false;
+          break;
+        }
       }
     }
-    if (filterType == FilterType.AND && isBookFiltered) {
-      filteredBooks.add(book);
-    } else if (filterType == FilterType.OR && isBookFiltered) {
+    if (isBookFiltered) {
       filteredBooks.add(book);
     }
   }
+
   return filteredBooks;
 }
