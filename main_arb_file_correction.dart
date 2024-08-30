@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 Future<void> main() async {
-  const originalFilePath = "C:\\Users\\Jean-Pierre\\Development\\Flutter\\audiolearn\\lib\\l10n\\app_en.arb";
-  const correctedFilePath = "C:\\Users\\Jean-Pierre\\Development\\Flutter\\audiolearn\\lib\\l10n\\corrected_tooltips_en.arb";
-  const outputFilePath = "C:\\Users\\Jean-Pierre\\Development\\Flutter\\audiolearn\\lib\\l10n\\updated_original_en.arb";
+  const originalFilePath = "C:\\Users\\Jean-Pierre\\Development\\Flutter\\audiolearn\\lib\\l10n\\app_fr.arb";
+  const correctedFilePath = "C:\\Users\\Jean-Pierre\\Development\\Flutter\\audiolearn\\lib\\l10n\\corrected_tooltips_fr.arb";
+  const outputFilePath = "C:\\Users\\Jean-Pierre\\Development\\Flutter\\audiolearn\\lib\\l10n\\updated_original_fr.arb";
 
   // Read the original and corrected ARB files
   final originalFile = File(originalFilePath);
